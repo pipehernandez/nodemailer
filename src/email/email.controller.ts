@@ -1,6 +1,7 @@
 import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { EmailService } from './services/email/email.service';
+import { SendEmailDto } from './dtos/send-email.dto';
 
 @Controller('api/email')
 export class EmailController {
@@ -10,7 +11,7 @@ export class EmailController {
     ){}
 
     @Post('send-email')
-    sendEmail(@Body() body: any, @Res() res: Response){
+    sendEmail(@Body() body: SendEmailDto, @Res() res: Response){
         try {
             const response = this.emailService.sendEmail(body)
             res.status(HttpStatus.OK).send(response)
