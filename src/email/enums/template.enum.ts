@@ -1,3 +1,3 @@
-export enum Template{
+export enum Template {
     WELCOME = 'welcome'
 }

@@ -1,33 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer'
-
+import * as dotenv from 'dotenv'
+dotenv.config()
 
 @Injectable()
 export class Email {
 
     transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // Use `true` for port 465, `false` for all other ports
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
+        secure: false, 
         auth: {
-            user: "maddison53@ethereal.email",
-            pass: "jn7jnAPss4f63QBp6D",
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASSWORD,
         },
-    });
+      });
 
-    async sendEmail(from : string, subjectEmail: string, sendTo: string, html: void) {
+    async sendEmail(from, subjectEmail, sendTo, html){
         try {
             const info = await this.transporter.sendMail({
-            from: from, // sender address
-            to: sendTo, // list of receivers
-            subject: subjectEmail, // Subject line
-            html: html, // html body
-        });
-
-        console.log("Message sent: %s", info.messageId);
+                from, // sender address
+                to: sendTo, // list of receivers
+                subject: subjectEmail, // Subject line
+                html: html, // html body
+              });
+            
         } catch (error) {
-            throw new Error(error.message)
+            throw error            
         }
-        
+    }
+
+    async testEmail(){
+      try {
+
+          const info = await this.transporter.sendMail({
+          from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
+          to: "bar@example.com, baz@example.com", // list of receivers
+          subject: 'Email de prueba', // Subject line
+          html: '<b>Test Email</b>', // html body
+        });
+      } catch (error) {
+        throw error
+      }
     }
 }

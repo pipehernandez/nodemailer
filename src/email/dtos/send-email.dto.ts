@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
 import { Template } from "../enums/template.enum";
 
 export class SendEmailDto {
@@ -9,7 +9,7 @@ export class SendEmailDto {
     @IsString()
     @IsNotEmpty()
     subjectEmail: string;
-
+    
     @IsString()
     @IsNotEmpty()
     sendTo: string;
@@ -17,4 +17,8 @@ export class SendEmailDto {
     @IsEnum(Template)
     @IsNotEmpty()
     template: string;
+
+    @IsObject()
+    @IsOptional()
+    params: any;
 }

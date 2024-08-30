@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { SendEmailDto } from 'src/email/dtos/send-email.dto';
 import { Email } from 'src/email/providers/email/email';
-import { fillTemplate } from 'src/email/templates/welcome';
 
 @Injectable()
 export class EmailService {
@@ -13,21 +12,32 @@ export class EmailService {
     async sendEmail(body: SendEmailDto){
         try {
             const { from, subjectEmail, sendTo } = body
-        const html = this.getTemplate(body)
-        await this.emailProvider.sendEmail(from, subjectEmail, sendTo, html)
+            const html = this.getTemplate(body)
+            await this.emailProvider.sendEmail(from, subjectEmail, sendTo, html)
+            return true
         } catch (error) {
-            throw new Error(error.message)
+            throw error            
         }
-
     }
 
-    getTemplate(body){
+    async healthCheck(){
+        try {
+            await this.emailProvider.testEmail()
+            return {
+                statusService: 'UP'
+            }
+        } catch (error) {
+            throw error
+        }
+    }
+
+    private getTemplate(body){
         const template = this.getTemplateFile(body.template)
-        const html = fillTemplate(body)
+        const html = template.fillTemplate(body)
         return html
     }
 
-    getTemplateFile(template){
+    private getTemplateFile(template){
         const path = '../../templates'
         const templateFile = require(`${path}/${template}`)
         return templateFile
