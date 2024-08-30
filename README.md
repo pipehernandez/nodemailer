@@ -39,8 +39,8 @@ Create .env file with:
 - PORT = 3000
 - EMAIL_PORT = 587
 - EMAIL_HOST = smtp.gmail.com
-- EMAIL_USER = ```sender email
-- EMAIL_PASSWORD = ```password generated in email
+- EMAIL_USER = sender email
+- EMAIL_PASSWORD = password generated in email
 
 ```bash
 # development
