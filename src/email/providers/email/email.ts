@@ -16,10 +16,10 @@ export class Email {
         },
       });
 
-    async sendEmail(from, subjectEmail, sendTo, html){
+    async sendEmail( subjectEmail, sendTo, html){
         try {
             const info = await this.transporter.sendMail({
-                from, // sender address
+                from: process.env.EMAIL_USER, // sender address
                 to: sendTo, // list of receivers
                 subject: subjectEmail, // Subject line
                 html: html, // html body

@@ -2,9 +2,9 @@ import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString } from "class-valida
 import { Template } from "../enums/template.enum";
 
 export class SendEmailDto {
-    @IsString()
-    @IsNotEmpty()
-    from: string;
+    // @IsString()
+    // @IsNotEmpty()
+    // from: string;
 
     @IsString()
     @IsNotEmpty()

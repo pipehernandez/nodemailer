@@ -11,9 +11,9 @@ export class EmailService {
 
     async sendEmail(body: SendEmailDto){
         try {
-            const { from, subjectEmail, sendTo } = body
+            const { subjectEmail, sendTo } = body
             const html = this.getTemplate(body)
-            await this.emailProvider.sendEmail(from, subjectEmail, sendTo, html)
+            await this.emailProvider.sendEmail( subjectEmail, sendTo, html)
             return true
         } catch (error) {
             throw error            
