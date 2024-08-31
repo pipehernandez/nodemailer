@@ -1,3 +1,4 @@
+import { IRegister } from './../../interfaces/register';
 import { Injectable } from '@nestjs/common';
 import { SendEmailDto } from 'src/email/dtos/send-email.dto';
 import { Email } from 'src/email/providers/email/email';
@@ -11,7 +12,7 @@ export class EmailService {
 
     async sendEmail(body: SendEmailDto){
         try {
-            const { subjectEmail, sendTo } = body
+            const { subjectEmail, sendTo, params: IRegister } = body
             const html = this.getTemplate(body)
             await this.emailProvider.sendEmail( subjectEmail, sendTo, html)
             return true
@@ -20,16 +21,6 @@ export class EmailService {
         }
     }
 
-    async healthCheck(){
-        try {
-            await this.emailProvider.testEmail()
-            return {
-                statusService: 'UP'
-            }
-        } catch (error) {
-            throw error
-        }
-    }
 
     private getTemplate(body){
         const template = this.getTemplateFile(body.template)

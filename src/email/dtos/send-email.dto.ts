@@ -1,5 +1,8 @@
-import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString } from "class-validator";
+import { IsEnum, IsNotEmpty, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
 import { Template } from "../enums/template.enum";
+import { IRegister } from "../interfaces/register";
+import { Type } from "class-transformer";
+import { RegisterDto } from "./register.dto";
 
 export class SendEmailDto {
     // @IsString()
@@ -18,7 +21,8 @@ export class SendEmailDto {
     @IsNotEmpty()
     template: string;
 
-    @IsObject()
-    @IsOptional()
-    params: any;
+    @ValidateNested()
+    @Type(() => RegisterDto)
+    @IsNotEmpty()
+    params: RegisterDto;
 }

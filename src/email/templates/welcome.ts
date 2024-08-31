@@ -11,8 +11,8 @@ export const fillTemplate = (body: SendEmailDto) => {
             <title>Document</title>
         </head>
         <body>
-            <h1>Hola ${params.name}!!!</h1>
-            <h2>Este es un mensaje de prueba desde el micro servicio de email ${params.id}</h2>
+            <h1>Hola ${params.userName}!!!</h1>
+            <h2>Este es un mensaje de prueba desde el micro servicio de email ${params.userEmail}</h2>
         </body>
         </html> 
     `
